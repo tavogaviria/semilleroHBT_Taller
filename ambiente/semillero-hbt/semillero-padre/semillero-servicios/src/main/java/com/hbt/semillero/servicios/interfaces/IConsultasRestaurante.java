@@ -5,7 +5,9 @@ import java.util.List;
 import javax.ejb.Local;
 
 import com.hbt.semillero.dto.PlatoDTO;
+import com.hbt.semillero.dto.ResultadoDTO;
 import com.hbt.semillero.dto.BebidaDTO;
+import com.hbt.semillero.dto.FacturaDTO;
 
 @Local
 public interface IConsultasRestaurante {
@@ -23,4 +25,12 @@ public interface IConsultasRestaurante {
 	 * @return
 	 */
 	public List<BebidaDTO> consultarBebidas();
+	
+	/**
+	 * Crea las facturas con los respectivos detalles dentro del sistema
+	 * 
+	 * @param facturaDTO
+	 * @return
+	 */
+	public ResultadoDTO crearPedido(FacturaDTO facturaDTO);
 }

@@ -17,6 +17,7 @@ import javax.persistence.Query;
 import com.hbt.semillero.servicios.interfaces.IConsultasRestaurante;
 
 import com.hbt.semillero.dto.PlatoDTO;
+import com.hbt.semillero.dto.ResultadoDTO;
 import com.hbt.semillero.dto.BebidaDTO;
 import com.hbt.semillero.dto.ClienteDTO;
 import com.hbt.semillero.dto.FacturaDTO;
@@ -41,7 +42,7 @@ public class ConsultasRestaurante implements IConsultasRestaurante {
 	private EntityManager em;
 
 	/**
-	 * Método que nos sirve para retornar todos los platos disponibles en el sistema
+	 * Mï¿½todo que nos sirve para retornar todos los platos disponibles en el sistema
 	 * @author Gustavo Gaviria
 	 * {@link com.hbt.semillero.servicios.interfaces.IConsultasRestaurante#consultarPlatos()}
 	 */
@@ -59,7 +60,7 @@ public class ConsultasRestaurante implements IConsultasRestaurante {
 	
 	
 	/**
-	 * Método que nos sirve para retornar todos las bebidas disponibles en el sistema
+	 * Mï¿½todo que nos sirve para retornar todos las bebidas disponibles en el sistema
 	 * @author Gustavo Gaviria
 	 * {@link com.hbt.semillero.servicios.interfaces.IConsultasRestaurante#consultarBebidas()}
 	 */
@@ -77,16 +78,20 @@ public class ConsultasRestaurante implements IConsultasRestaurante {
 	
 	
 	/**
-	 * método que almacena el pedido como factura en el sistema
+	 * mï¿½todo que almacena el pedido como factura en el sistema
 	 * {@link com.hbt.semillero.servicios.interfaces.IConsultasRestaurante#crearPedido(PedidoDTO)}
 	 */
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public ResultadoDTO crearPedido(platoDTO,bebidaDTO,clienteDTO) {
+	public ResultadoDTO crearPedido(FacturaDTO facturaDTO) {
 		try {
-			if (facturaDTO.getFecha() <= Calendar.getInstance()) {
+			if (facturaDTO.getFecha() <= Calendar.DATE) {
 				Factura factura = new Factura();
-				factura.setCliente(clienteDTO.getIdCliente());
+				ClienteDTO clienteDTO = new ClienteDTO();
+				PlatoDTO platoDTO = new PlatoDTO();
+				BebidaDTO bebidaDTO = new BebidaDTO();
+				
+				factura.setCliente(cliente);
 				
 				FacturaDetalle detalle =  new FacturaDetalle();
 				detalle.setPlato(platoDTO.getIdPlato());
@@ -99,8 +104,9 @@ public class ConsultasRestaurante implements IConsultasRestaurante {
 				factura.setTotal(platoDTO.getPrecio()+bebidaDTO.getPrecio()+factura.getIva());
 				
 				em.persist(factura);
+				em.persist(detalle);
 			}else{
-				return new ResultadoDTO(false, "La fecha de facturación debe ser igual o menor a la fecha actual");
+				return new ResultadoDTO(false, "La fecha de facturaciï¿½n debe ser igual o menor a la fecha actual");
 			}
 		} catch (Exception e) {
 			return new ResultadoDTO(false, e.getMessage());
