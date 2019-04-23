@@ -16,7 +16,7 @@ public class BebidaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Identificador único de la bebida
+	 * Identificador unico de la bebida
 	 */
 	private Long idBebida;
 

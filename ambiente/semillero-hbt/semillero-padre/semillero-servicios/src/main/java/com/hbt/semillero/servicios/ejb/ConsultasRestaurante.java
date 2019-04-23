@@ -85,8 +85,12 @@ public class ConsultasRestaurante implements IConsultasRestaurante {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public ResultadoDTO crearPedido(FacturaDTO facturaDTO) {
 		try {
-			if (facturaDTO.getFecha() <= Calendar.DATE) {
+			//if (facturaDTO.getFecha() <= (Date) Calendar.getInstance()) {
 				Factura factura = new Factura();
+				Cliente cliente = new Cliente();
+				Plato plato = new Plato();
+				Bebida bebida =  new Bebida();
+				
 				ClienteDTO clienteDTO = new ClienteDTO();
 				PlatoDTO platoDTO = new PlatoDTO();
 				BebidaDTO bebidaDTO = new BebidaDTO();
@@ -94,20 +98,20 @@ public class ConsultasRestaurante implements IConsultasRestaurante {
 				factura.setCliente(cliente);
 				
 				FacturaDetalle detalle =  new FacturaDetalle();
-				detalle.setPlato(platoDTO.getIdPlato());
-				detalle.setBebida(bebidaDTO.getIdBebida());
+				detalle.setPlato(plato);
+				detalle.setBebida(bebida);
 				detalle.setPrecio_unitario(detalle.getPrecio_unitario()+platoDTO.getPrecio());
 				detalle.setPrecio_unitario(detalle.getPrecio_unitario()+bebidaDTO.getPrecio());
-				detalle.setFactura(factura.getIdFactura());
+				detalle.setFactura(factura);
 				
 				factura.setIva((platoDTO.getPrecio()*100/5)+(bebidaDTO.getPrecio()*100/5));
 				factura.setTotal(platoDTO.getPrecio()+bebidaDTO.getPrecio()+factura.getIva());
 				
 				em.persist(factura);
 				em.persist(detalle);
-			}else{
+			/*}else{
 				return new ResultadoDTO(false, "La fecha de facturaci�n debe ser igual o menor a la fecha actual");
-			}
+			}*/
 		} catch (Exception e) {
 			return new ResultadoDTO(false, e.getMessage());
 		}
@@ -157,14 +161,18 @@ public class ConsultasRestaurante implements IConsultasRestaurante {
 	 */
 	private Factura asignarAtributosBasicosFactura(PlatoDTO platoDTO,BebidaDTO bebidaDTO,ClienteDTO clienteDTO) {
 		Factura factura = new Factura();
-		factura.setCliente(clienteDTO.getIdCliente());
+		Cliente cliente = new Cliente();
+		Plato plato = new Plato();
+		Bebida bebida = new Bebida();
+		
+		factura.setCliente(cliente);
 		
 		FacturaDetalle detalle =  new FacturaDetalle();
-		detalle.setPlato(platoDTO.getIdPlato());
-		detalle.setBebida(bebidaDTO.getIdBebida());
+		detalle.setPlato(plato);
+		detalle.setBebida(bebida);
 		detalle.setPrecio_unitario(detalle.getPrecio_unitario()+platoDTO.getPrecio());
 		detalle.setPrecio_unitario(detalle.getPrecio_unitario()+bebidaDTO.getPrecio());
-		detalle.setFactura(factura.getIdFactura());
+		detalle.setFactura(factura);
 		
 		factura.setIva((platoDTO.getPrecio()*100/5)+(bebidaDTO.getPrecio()*100/5));
 		factura.setTotal(platoDTO.getPrecio()+bebidaDTO.getPrecio()+factura.getIva());

@@ -14,7 +14,7 @@ public class FacturaDetalleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Identificador único del detalle la factura
+	 * Identificador unico del detalle la factura
 	 */
 	private Long idFacturaDetalle;
 	

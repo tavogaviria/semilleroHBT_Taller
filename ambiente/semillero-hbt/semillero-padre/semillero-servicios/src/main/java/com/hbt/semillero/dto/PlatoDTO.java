@@ -15,7 +15,7 @@ public class PlatoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Identificador único del plato
+	 * Identificador unico del plato
 	 */
 	private Long idPlato;
 

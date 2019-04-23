@@ -1,0 +1,25 @@
+<form>
+	<div [ngStyle]="{'background-color':'blue'}">
+			<legend>Pedido</legend>
+	</div>
+		
+	<section>
+	  <label for="plato">Plato</label>
+    <ul *ngIf="platos.length>0; else empty">
+      <li *ngFor="let pla of platos">
+        <span>{{ per.nombre | uppercase}}</span>
+        <span>{{ per.apellido }}</span>
+        <input value="Borrar" type="button" (click)="borrar(per)">
+      </li>
+    </ul>
+	</section>
+	
+	<pre>{{ plato | json }}</pre>
+	
+	<input value="Guardar" type="submit" (click)="guardar()" />
+
+	<ng-template #empty>
+	  <i>Sin datos</i>
+	</ng-template>
+</form>
+

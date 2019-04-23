@@ -4,6 +4,7 @@ import { HttpModule} from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GestionModule} from './gestion/gestion.module';
 
 import { APP_BASE_HREF } from '@angular/common';
 
@@ -14,6 +15,7 @@ import { APP_BASE_HREF } from '@angular/common';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    GestionModule,
     HttpModule,
     HttpClientModule
   ],

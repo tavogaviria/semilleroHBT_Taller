@@ -15,7 +15,7 @@ public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Identificador único del cliente
+	 * Identificador unico del cliente
 	 */
 	private Long idCliente;
 	
